@@ -132,7 +132,6 @@ toml==0.10.2
 tomli==2.0.1
 toolz==0.12.0
 tox==3.13.2
-tvdatafeed==2.1.0
 typing_extensions==4.3.0
 tzdata==2022.1
 tzlocal==4.2
