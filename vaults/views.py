@@ -21,7 +21,7 @@ class Vaults(GenericViewSet):
         try:
             firebase_db_manager_obj = FirebaseDataManager()
             price_range = firebase_db_manager_obj.fetch_data(
-                collection_name="assets_price_range",
+                collection_name=validated_data.get("vault"),
                 document_name=validated_data.get("asset_name"),
             )["price_range"]
             lower_bound = price_range["lower_bound"]
@@ -29,6 +29,6 @@ class Vaults(GenericViewSet):
             result["message"] = {"upper_bound": upper_bound, "lower_bound": lower_bound}
 
         except Exception as e:
-            result["error"] = e
+            result["error"] = str(e)
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(result, status.HTTP_200_OK)
