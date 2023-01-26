@@ -25,6 +25,9 @@ SECRET_KEY = ")8hg=iy1v-06-@-tr#1(+%9l(s%$0#%vwd^82b6b4fb-j*2t=!"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://test.app.cruize.finance",
@@ -43,7 +46,6 @@ ALLOWED_HOSTS = [
     "34.225.2.31",
     "beta.trident.v2.cruize.finance",
     "localhost"
-    "localhost:3000"
 ]
 
 # Application definition
