@@ -12,7 +12,7 @@ import os
 # TODO: make this class singleton
 class FirebaseClient(object):
     def __init__(self):
-        self.client = None
+        self.client = self.create_firebase_client_instance()
 
     def create_firebase_client_instance(self):
         cred = credentials.Certificate(

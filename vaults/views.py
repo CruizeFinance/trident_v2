@@ -10,7 +10,9 @@ from vaults.serilaizer import FetchPriceRangeRequestSerializer
 
 
 class Vaults(GenericViewSet):
+
     def price_range(self, request):
+        print('vaults')
         result = {"message": None, "error": None}
         serializer_class = FetchPriceRangeRequestSerializer
         request_body = request.query_params
