@@ -26,5 +26,6 @@ class FirebaseClient(object):
     def get_firebase_client(self):
         if self.client is not None:
             return self.client
-        print("FirebaseClient :: Firebase client is None")
-        return self.create_firebase_client_instance()
+        elif not firebase_admin._apps:
+            print("FirebaseClient :: Firebase client is None")
+            return self.create_firebase_client_instance()
