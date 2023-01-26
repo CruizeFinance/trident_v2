@@ -17,6 +17,7 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+
 from services.firebase_cloud_client import FirebaseClient
 
 

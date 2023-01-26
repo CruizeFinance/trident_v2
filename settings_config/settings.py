@@ -41,7 +41,7 @@ ALLOWED_HOSTS = [
     "3.210.156.188",
     "3.231.35.12",
     "34.225.2.31",
-    "beta.trident.v2.cruize.finance"
+    "beta.trident.v2.cruize.finance",
 ]
 
 # Application definition
