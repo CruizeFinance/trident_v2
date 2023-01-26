@@ -43,6 +43,7 @@ ALLOWED_HOSTS = [
     "34.225.2.31",
     "beta.trident.v2.cruize.finance",
     "localhost"
+    "localhost:3000"
 ]
 
 # Application definition
