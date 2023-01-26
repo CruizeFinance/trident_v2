@@ -12,18 +12,15 @@ from vaults.serilaizer import FetchPriceRangeRequestSerializer
 class Vaults(GenericViewSet):
 
     def price_range(self, request):
-        print('vaults')
         result = {"message": None, "error": None}
         serializer_class = FetchPriceRangeRequestSerializer
         request_body = request.query_params
         serializer = serializer_class(data=request_body)
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
-        print(validated_data.get("asset_name"))
 
         try:
             firebase_db_manager_obj = FirebaseDataManager()
-            print("fetching")
             price_range = firebase_db_manager_obj.fetch_data(
                 collection_name="assets_price_range",
                 document_name=validated_data.get("asset_name"),
