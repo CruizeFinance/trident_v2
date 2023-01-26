@@ -25,8 +25,24 @@ SECRET_KEY = ")8hg=iy1v-06-@-tr#1(+%9l(s%$0#%vwd^82b6b4fb-j*2t=!"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://test.app.cruize.finance",
+    "https://www.test.app.cruize.finance",
+    "https://www.beta.app.cruize.finance",
+]
+ALLOWED_HOSTS = [
+    "*",
+    "52.20.55.165",
+    "test2.trident.cruize.finance",
+    "test1.trident.cruize.finance",
+    "test.trident.cruize.finance",
+    "trident.test.cruize.finance",
+    "3.210.156.188",
+    "3.231.35.12",
+    "34.225.2.31",
+    "beta.trident.v2.cruize.finance"
+]
 
 # Application definition
 
