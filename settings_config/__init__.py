@@ -1,7 +1,7 @@
 import os
 
 import firebase_admin
-from firebase_admin import credentials
+from firebase_admin import credentials, firestore
 
 
 def initialize_firebase_client():
@@ -13,7 +13,9 @@ def initialize_firebase_client():
         cred = credentials.Certificate(
             os.path.abspath(os.path.dirname(__file__)) + "/firebase_config.json"
         )
-        return firebase_admin.initialize_app(cred)
+
+        firebase_admin.initialize_app(cred)
+        return firestore.client()
 
     # global firebase_client
     # firebase_client = None
