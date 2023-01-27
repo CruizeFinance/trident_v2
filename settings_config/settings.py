@@ -27,7 +27,6 @@ DEBUG = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://test.app.cruize.finance",
@@ -45,12 +44,10 @@ ALLOWED_HOSTS = [
     "3.231.35.12",
     "34.225.2.31",
     "beta.trident.v2.cruize.finance",
-    "localhost",
     "http://localhost:3000",
 ]
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
