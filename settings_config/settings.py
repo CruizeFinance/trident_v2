@@ -32,6 +32,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://test.app.cruize.finance",
     "https://www.test.app.cruize.finance",
     "https://www.beta.app.cruize.finance",
+    "https://dev.d1sepe235cn29v.amplifyapp.com/",
 ]
 ALLOWED_HOSTS = [
     "*",
