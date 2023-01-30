@@ -30,8 +30,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://test.app.cruize.finance",
+    "https://test.app.v2.cruize.finance",
     "https://www.test.app.cruize.finance",
+    "https://www.test.app.v2.cruize.finance",
     "https://www.beta.app.cruize.finance",
+    "https://www.beta.app.v2.cruize.finance",
     "https://dev.d1sepe235cn29v.amplifyapp.com/",
 ]
 ALLOWED_HOSTS = [
