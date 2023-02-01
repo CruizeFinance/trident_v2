@@ -7,10 +7,12 @@ from utilities import constant
 class CruizeContract(object):
     def __init__(self):
         self.load_contract = LoadContracts()
-        contract_abi = open("services/contracts/cruize/cruize_contract_abi.json")
+        contract_abi = open("cruize_contract_abi.json")
+
         self.firebase_db_manager_obj = FirebaseDataManager()
+        cruize_contract = self.firebase_db_manager_obj.fetch_data("contracts", "cruize_contract")
         self.contract = self.load_contract.load_contracts(
-            constant.CRUIZE_CONTRACT, contract_abi
+            cruize_contract["address"][0], contract_abi
         )
         self.w3 = self.load_contract.web3_provider()
 

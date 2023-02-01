@@ -1,6 +1,6 @@
-CRUIZE_CONTRACT = "0xB2637b0AD76eCc5c2DADbb7d4966D38751932aEe"
+CRUIZE_CONTRACT = "0xb41Ca4738D0a491acBb88375C62FCb540410Ac52"
 symbol_asset = {"WETH": "ethereum", "WBTC": "bitcoin", "USDC": "usd"}
-asset_decimals = {"WETH": 1e18, "WBTC": 1e08, "USDC": 1}
+asset_decimals = {"WETH": 1e18, "WBTC": 1e08, "USDC": 1e06}
 asset_tvl = {"ethereum": 1614, "bitcoin": 212, "usd": 0}
 asset_cap_decimal = 1e18
 
