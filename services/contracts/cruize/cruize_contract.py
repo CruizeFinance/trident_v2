@@ -4,10 +4,10 @@ from services.contracts import LoadContracts
 from utilities import constant
 
 
-class CruizeVault:
+class CruizeContract(object):
     def __init__(self):
         self.load_contract = LoadContracts()
-        contract_abi = open("/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json")
+        contract_abi = open("services/contracts/cruize/cruize_contract_abi.json")
         self.firebase_db_manager_obj = FirebaseDataManager()
         self.contract = self.load_contract.load_contracts(
             constant.CRUIZE_CONTRACT, contract_abi
@@ -33,17 +33,24 @@ class CruizeVault:
                 asset_address,
                 constant.symbol_asset[asset_symbol],
                 constant.asset_decimals[asset_symbol],
-            )
-            assets_total_tvl [asset_symbol] = asset_tvl
+            )["tvl"]
+            assets_total_tvl[asset_symbol] = asset_tvl
         return assets_total_tvl
 
     def get_asset_tvl(self, asset_address, asset_name, decimals):
         asset_tvl_info = self.contract.functions.vaults(asset_address).call()
+
+        asset_cap = asset_tvl_info[4] / constant.asset_cap_decimal
         asset_tvl = asset_tvl_info[1] + asset_tvl_info[2]
         asset_tvl = asset_tvl / decimals
         asset_tvl = asset_tvl + constant.asset_tvl[asset_name]
-        return asset_tvl
+
+        asset_info = {"vault_cap": asset_cap, "tvl": asset_tvl}
+        return asset_info
 
 
 if __name__ == "__main__":
-    a = CruizeVault()
+    a = CruizeContract()
+    print(
+        a.get_asset_tvl("0xf4423F4152966eBb106261740da907662A3569C5", "bitcoin", 1e18)
+    )

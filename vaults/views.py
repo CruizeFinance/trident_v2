@@ -9,13 +9,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from components import FirebaseDataManager
-from services import CruizeVault
+from services import CruizeContract
 from vaults.serilaizer import (
     FetchPriceRangeRequestSerializer,
     ExpirationRequestSerializer,
     AssetTVLRequestSerializer,
 )
-
 
 
 class Vaults(GenericViewSet):
@@ -78,7 +77,7 @@ class Vaults(GenericViewSet):
         serializer = self.serializer_class(data=request_body)
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
-        cruize_vault_obj = CruizeVault()
+        cruize_vault_obj = CruizeContract()
         try:
             result["message"] = cruize_vault_obj.asset_tvl(
                 validated_data["asset_symbol"]
@@ -90,11 +89,10 @@ class Vaults(GenericViewSet):
 
     def all_asset_tvl(self, request):
         result = {"message": None, "error": None}
-        cruize_vault_obj = CruizeVault()
+        cruize_vault_obj = CruizeContract()
         try:
             result["message"] = cruize_vault_obj.all_assets_tvl()
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
             result["error"] = e
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
-

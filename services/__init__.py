@@ -1,1 +1,1 @@
-from .contracts import LoadContracts, CruizeVault
+from .contracts import LoadContracts, CruizeContract

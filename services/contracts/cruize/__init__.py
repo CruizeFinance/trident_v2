@@ -1,1 +1,1 @@
-from .cruize_contract import CruizeVault
+from .cruize_contract import CruizeContract
