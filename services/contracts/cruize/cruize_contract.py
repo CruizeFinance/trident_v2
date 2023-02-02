@@ -4,7 +4,6 @@ from components import FirebaseDataManager
 from services import api_services
 from services.contracts import LoadContracts
 from utilities import constant
-from joblib import Parallel, delayed
 
 from web3 import Web3
 
