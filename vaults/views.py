@@ -85,10 +85,17 @@ class Vaults(GenericViewSet):
 
     def all_asset_tvl(self, request):
         result = {"message": None, "error": None}
+        self.serializer_class = AssetTotalTVLRequestSerializer
+        request_body = request.query_params
+        serializer = self.serializer_class(data=request_body)
+        serializer.is_valid(raise_exception=True)
+        validated_data = serializer.validated_data
         cruize_vault_obj = CruizeContract()
 
         try:
-            result["message"] = cruize_vault_obj.total_tvl()
+            result["message"] = cruize_vault_obj.all_assets_tvl(
+                validated_data["network_id"]
+            )
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
             result["error"] = e
