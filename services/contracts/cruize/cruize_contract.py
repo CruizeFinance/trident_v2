@@ -104,4 +104,4 @@ class CruizeContract(object):
 if __name__ == "__main__":
     a = CruizeContract()
     # print(a.total_tvl())
-    print(a.asset_tvl('WBTC', '5'))
+    print(a.asset_tvl("WBTC", "5"))
