@@ -1,7 +1,10 @@
+import json
+
 from components import FirebaseDataManager
 from services import api_services
 from services.contracts import LoadContracts
 from utilities import constant
+from joblib import Parallel, delayed
 
 from web3 import Web3
 
@@ -13,12 +16,13 @@ class CruizeContract(object):
         #     "/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json"
         # )
         self.contract_abi = open("./cruize_contract_abi.json")
+        self.contract_data = json.load(self.contract_abi)
         self.firebase_db_manager_obj = FirebaseDataManager()
 
     def get_contract(self, network):
         cruize_contract = self.firebase_db_manager_obj.fetch_data("contracts", "cruize")
         contract = self.load_contract.load_contracts(
-            cruize_contract[network + "_address"], self.contract_abi, network
+            cruize_contract[network + "_address"], self.contract_data, network
         )
         return contract
 
@@ -99,8 +103,5 @@ class CruizeContract(object):
 
 if __name__ == "__main__":
     a = CruizeContract()
-    # print(
-    #     a.get_asset_tvl("0xf4423F4152966eBb106261740da907662A3569C5", "bitcoin", 1e18)
-    # )
-    # a.get_contract("ethereum_goerli")
-    print(a.total_tvl())
+    # print(a.total_tvl())
+    print(a.asset_tvl('WBTC', '5'))

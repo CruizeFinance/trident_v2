@@ -16,10 +16,9 @@ class LoadContracts:
     """
 
     def load_contracts(self, contract_address, contract_abi, network_name):
-        contract_data = json.load(contract_abi)
         w3 = self.web3_provider(network_name)
         contract_address = w3.toChecksumAddress(contract_address)
-        contract = w3.eth.contract(address=contract_address, abi=contract_data)
+        contract = w3.eth.contract(address=contract_address, abi=contract_abi)
         return contract
 
     """
