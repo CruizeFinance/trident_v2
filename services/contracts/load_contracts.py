@@ -3,6 +3,9 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware
 
 # class -  LoadContracts: is responsible for lading contract and web3
+from utilities import constant
+
+
 class LoadContracts:
 
     """
@@ -12,9 +15,10 @@ class LoadContracts:
     :return - contract instance.
     """
 
-    def load_contracts(self, contract_address, contract_abi):
+    def load_contracts(self, contract_address, contract_abi,network):
         contract_data = json.load(contract_abi)
-        w3 = self.web3_provider()
+        w3 = self.web3_provider(constant.network_rpc_url_name[network])
+        contract_address = w3.toChecksumAddress(contract_address)
         contract = w3.eth.contract(address=contract_address, abi=contract_data)
         return contract
 
@@ -23,11 +27,13 @@ class LoadContracts:
       :return - web3 instance. 
     """
 
-    def web3_provider(self):
+    def web3_provider(self,network_name):
         web3 = Web3(
             Web3.HTTPProvider(
-                "https://goerli.infura.io/v3/4e55b6d7c94d4c58a931971dc807d055"
+                f"https://{network_name}.infura.io/v3/2cc3b3784c7940a0a844e51b59857588"
+
             )
+
         )
         web3.middleware_onion.inject(geth_poa_middleware, layer=0)
         return web3
