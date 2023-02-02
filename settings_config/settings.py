@@ -36,6 +36,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.beta.app.cruize.finance",
     "https://www.beta.app.v2.cruize.finance",
     "https://testnet.app.cruize.finance",
+    "https://www.testnet.app.cruize.finance"
     "https://www.beta.trident.v2.cruize.finance",
     "https://dev.d1sepe235cn29v.amplifyapp.com",
 ]
