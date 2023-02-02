@@ -52,6 +52,7 @@ ALLOWED_HOSTS = [
     "3.231.35.12",
     "34.225.2.31",
     "beta.trident.v2.cruize.finance",
+    "testnet.app.cruize.finance"
     "http://localhost:3000",
     "127.0.0.1",
 ]
