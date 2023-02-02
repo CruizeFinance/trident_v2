@@ -9,8 +9,8 @@ from web3 import Web3
 class CruizeContract(object):
     def __init__(self):
         self.load_contract = LoadContracts()
-        self.contract_abi = open("/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json")
-        # self.contract_abi = open("services/contracts/cruize/cruize_contract_abi.json")
+        # self.contract_abi = open("/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json")
+        self.contract_abi = open("cruize_contract_abi.json")
         self.firebase_db_manager_obj = FirebaseDataManager()
 
     def get_contract(self, network):
@@ -37,7 +37,7 @@ class CruizeContract(object):
         )
         return asset_tvl
 
-    def all_assets_tvl(self, network_id):
+    def network_tvl(self, network_id):
         network_name = constant.network_name[network_id]
         contract = self.get_contract(network_name)
         asset_data = self.firebase_db_manager_obj.fetch_data("contracts", "cruize")
@@ -50,6 +50,23 @@ class CruizeContract(object):
                 constant.asset_decimals[asset_symbol],
                 contract,
                 network_name,
+            )["tvl"]
+            assets_total_tvl[asset_symbol] = asset_tvl
+        return assets_total_tvl
+
+    def total_tvl(self):
+        network = 'goerli'
+        contract = self.get_contract(network)
+        asset_data = self.firebase_db_manager_obj.fetch_data("contracts", "cruize")
+        assets = asset_data[network]
+        assets_total_tvl = {}
+        for asset_symbol, asset_address in assets.items():
+            asset_tvl = self.get_asset_tvl(
+                asset_address,
+                constant.symbol_asset[asset_symbol],
+                constant.asset_decimals[asset_symbol],
+                contract,
+                network,
             )["tvl"]
             assets_total_tvl[asset_symbol] = asset_tvl
         return assets_total_tvl
@@ -74,4 +91,4 @@ if __name__ == "__main__":
     # print(
     #     a.get_asset_tvl("0xf4423F4152966eBb106261740da907662A3569C5", "bitcoin", 1e18)
     # )
-    a.get_contract("ethereum_goerli")
+    print(a.total_tvl())
