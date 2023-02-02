@@ -67,9 +67,9 @@ class Vaults(GenericViewSet):
 
     def asset_tvl(self, request):
         result = {"message": None, "error": None}
-        serializer_class = AssetTVLRequestSerializer
+        self.serializer_class = AssetTVLRequestSerializer
         request_body = request.query_params
-        serializer = serializer_class(data=request_body)
+        serializer = self.serializer_class(data=request_body)
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
         cruize_vault_obj = CruizeContract()
