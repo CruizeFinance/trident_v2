@@ -11,7 +11,6 @@ from vaults.serilaizer import (
     ExpirationRequestSerializer,
     AssetTVLRequestSerializer,
 )
-from vaults.serilaizer.serializer import AssetTotalTVLRequestSerializer
 
 
 class Vaults(GenericViewSet):
@@ -83,19 +82,11 @@ class Vaults(GenericViewSet):
             result["error"] = e
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def all_asset_tvl(self, request):
+    def total_tvl(self, request):
         result = {"message": None, "error": None}
-        self.serializer_class = AssetTotalTVLRequestSerializer
-        request_body = request.query_params
-        serializer = self.serializer_class(data=request_body)
-        serializer.is_valid(raise_exception=True)
-        validated_data = serializer.validated_data
-        cruize_vault_obj = CruizeContract()
-
+        cruize_contract_obj = CruizeContract()
         try:
-            result["message"] = cruize_vault_obj.all_assets_tvl(
-                validated_data["network_id"]
-            )
+            result["message"] = cruize_contract_obj.total_tvl()
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
             result["error"] = e
