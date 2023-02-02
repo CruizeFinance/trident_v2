@@ -15,9 +15,9 @@ class LoadContracts:
     :return - contract instance.
     """
 
-    def load_contracts(self, contract_address, contract_abi,network):
+    def load_contracts(self, contract_address, contract_abi, network_name):
         contract_data = json.load(contract_abi)
-        w3 = self.web3_provider(constant.network_rpc_url_name[network])
+        w3 = self.web3_provider(network_name)
         contract_address = w3.toChecksumAddress(contract_address)
         contract = w3.eth.contract(address=contract_address, abi=contract_data)
         return contract
@@ -27,13 +27,11 @@ class LoadContracts:
       :return - web3 instance. 
     """
 
-    def web3_provider(self,network_name):
+    def web3_provider(self, network_name):
         web3 = Web3(
             Web3.HTTPProvider(
                 f"https://{network_name}.infura.io/v3/2cc3b3784c7940a0a844e51b59857588"
-
             )
-
         )
         web3.middleware_onion.inject(geth_poa_middleware, layer=0)
         return web3

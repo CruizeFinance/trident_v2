@@ -1,9 +1,5 @@
 from datetime import datetime, timedelta
 
-import pytz
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
@@ -69,7 +65,6 @@ class Vaults(GenericViewSet):
         result["message"] = expiration_dict
         return Response(result, status=status.HTTP_200_OK)
 
-
     def asset_tvl(self, request):
         result = {"message": None, "error": None}
         self.serializer_class = AssetTVLRequestSerializer
@@ -78,9 +73,10 @@ class Vaults(GenericViewSet):
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
         cruize_vault_obj = CruizeContract()
+
         try:
             result["message"] = cruize_vault_obj.asset_tvl(
-                validated_data["asset_symbol"],validated_data["network_id"]
+                validated_data["asset_symbol"], validated_data["network_id"]
             )
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
@@ -95,8 +91,11 @@ class Vaults(GenericViewSet):
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
         cruize_vault_obj = CruizeContract()
+
         try:
-            result["message"] = cruize_vault_obj.all_assets_tvl(validated_data['network_id'])
+            result["message"] = cruize_vault_obj.all_assets_tvl(
+                validated_data["network_id"]
+            )
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
             result["error"] = e
