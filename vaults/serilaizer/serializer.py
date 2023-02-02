@@ -13,7 +13,7 @@ class ExpirationRequestSerializer(serializers.Serializer):
 
 class AssetTVLRequestSerializer(serializers.Serializer):
     asset_symbol = serializers.CharField(required=True)
-    network_id = serializers.CharField(required=True)
+    network_id = serializers.CharField(required=False, default=5)
 
 
 class AssetTotalTVLRequestSerializer(serializers.Serializer):
