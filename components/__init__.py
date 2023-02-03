@@ -1,1 +1,2 @@
 from .firebase_data_manager import FirebaseDataManager
+from .vault_strategy_plot import VaultStrategyPlot
