@@ -5,11 +5,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from components import FirebaseDataManager
+from components import VaultStrategyPlot
 from services import CruizeContract
 from vaults.serilaizer import (
     FetchPriceRangeRequestSerializer,
     ExpirationRequestSerializer,
     AssetTVLRequestSerializer,
+    VaultPlotRequestSerializer,
 )
 
 
@@ -90,4 +92,23 @@ class Vaults(GenericViewSet):
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
             result["error"] = e
+            return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def strategy_plot_data(self, request):
+        result = {"message": None, "error": None}
+        data = request.query_params
+        serializer_class = VaultPlotRequestSerializer
+        serializer = serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        validated_data = serializer.validated_data
+
+        try:
+            vault_strategy_plot = VaultStrategyPlot(vault=validated_data.get("vault"))
+            vault_strategy_plot_data = (
+                vault_strategy_plot.strategy_plot_data().to_dict()
+            )
+            result["message"] = vault_strategy_plot_data
+            return Response(result, status.HTTP_200_OK)
+        except Exception as e:
+            result["error"] = str(e)
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
