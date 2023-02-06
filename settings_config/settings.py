@@ -39,6 +39,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.testnet.app.cruize.finance",
     "https://www.beta.trident.v2.cruize.finance",
     "https://dev.d1sepe235cn29v.amplifyapp.com",
+    "https://dev.app.cruize.finance",
+    "https://www.dev.app.cruize.finance",
 ]
 ALLOWED_HOSTS = [
     "*",
@@ -52,7 +54,9 @@ ALLOWED_HOSTS = [
     "3.231.35.12",
     "34.225.2.31",
     "beta.trident.v2.cruize.finance",
-    "testnet.app.cruize.finance" "http://localhost:3000",
+    "testnet.app.cruize.finance",
+    "dev.app.cruize.finance",
+    "localhost",
     "127.0.0.1",
 ]
 
