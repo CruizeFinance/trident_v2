@@ -18,13 +18,13 @@ class VaultStrategyPlot(object):
     ):
         leftmost = -0.3
         rightmost = 0.3
-        step = 0.01
+        step = 0.0005
         grid = np.arange(leftmost, rightmost, step)
 
         upper_barrier = 1.1
         lower_barrier = 0.9
         twin_win_data = [
-            self._twin_peaks_plot(1 + round(i, 2), upper_barrier, lower_barrier)
+            self._twin_peaks_plot(1 + round(i, 3), upper_barrier, lower_barrier)
             for i in grid
         ]
         twin_win_df = pd.DataFrame({"results": twin_win_data, "pcg_moved": grid + 1})
@@ -35,30 +35,29 @@ class VaultStrategyPlot(object):
         bad_condition_up = pcg_change > upper_barrier
         bad_condition_down = pcg_change < lower_barrier
         if bad_condition_up | bad_condition_down:
-            return 0
+            return 0.02
         else:
-            #         return max(round(1-pcg_change,3), round(pcg_change-1,3))
-            return max(1 - pcg_change, pcg_change - 1)
+            return max(1 - pcg_change, pcg_change - 1) + 0.02
 
 
 if __name__ == "__main__":
-    v = VaultStrategyPlot("twin_peaks")
-    # v.twin_peak_plot()
     leftmost = -0.3
     rightmost = 0.3
-    step = 0.01
+    step = 0.0005
     grid = np.arange(leftmost, rightmost, step)
 
     upper_barrier = 1.1
     lower_barrier = 0.9
     twin_win_ = [
-        v._twin_peaks_plot(1 + round(i, 2), upper_barrier, lower_barrier) for i in grid
+        VaultStrategyPlot("protected_twin_peaks")._twin_peaks_plot(
+            1 + round(i, 3), upper_barrier, lower_barrier
+        )
+        for i in grid
     ]
     df = pd.DataFrame({"results": twin_win_, "pcg_moved": grid + 1})
 
     fig = px.line(df, x="pcg_moved", y="results", title="Twin Win")
-    print(df)
     fig.update_yaxes(scaleratio=100)
     fig.update_traces(mode="markers+lines")
-
+    # py.plot()
     fig.show()
