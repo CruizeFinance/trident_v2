@@ -124,7 +124,7 @@ class Vaults(GenericViewSet):
         try:
             firebase_db_manager_obj = FirebaseDataManager()
             asset_apy = firebase_db_manager_obj.fetch_data(
-                collection_name="assets",
+                collection_name=validated_data.get("vault"),
                 document_name=validated_data.get("asset_symbol"),
             )["apy"]
             result["message"] = asset_apy
