@@ -125,8 +125,8 @@ class Vaults(GenericViewSet):
             firebase_db_manager_obj = FirebaseDataManager()
             asset_apy = firebase_db_manager_obj.fetch_data(
                 collection_name=validated_data.get("vault"),
-                document_name=validated_data.get("asset_symbol"),
-            )["apy"]
+                document_name="apy",
+            )
             result["message"] = asset_apy
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
