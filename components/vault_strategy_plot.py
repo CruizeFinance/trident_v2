@@ -30,6 +30,7 @@ class VaultStrategyPlot(object):
             )
             for i in grid
         ]
+        twin_win_data = [(data * 100) for data in twin_win_data]
         twin_win_df = pd.DataFrame({"results": twin_win_data, "pcg_moved": grid + 1})
         return twin_win_df
 
@@ -57,6 +58,8 @@ if __name__ == "__main__":
         )
         for i in grid
     ]
+    # twin_win_data = [(data * 100) for data in twin_win_]
+    # print(twin_win_data)
     df = pd.DataFrame({"results": twin_win_, "pcg_moved": grid + 1})
 
     fig = px.line(df, x="pcg_moved", y="results", title="Twin Win")
