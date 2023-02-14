@@ -3,4 +3,5 @@ from .serializer import (
     FetchPriceRangeRequestSerializer,
     AssetTVLRequestSerializer,
     VaultPlotRequestSerializer,
+    AssetAPYRequestSerializer,
 )

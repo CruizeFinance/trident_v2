@@ -8,4 +8,5 @@ urlpatterns = [
     path("asset_tvl", Vaults.as_view({"get": "asset_tvl"})),
     path("total_tvl", Vaults.as_view({"get": "total_tvl"})),
     path("strategy_plot_data", Vaults.as_view({"get": "strategy_plot_data"})),
+    path("asset_apy", Vaults.as_view({"get": "asset_apy"})),
 ]
