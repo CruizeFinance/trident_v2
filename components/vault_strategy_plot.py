@@ -35,7 +35,9 @@ class VaultStrategyPlot(object):
             for i in grid
         ]
         twin_win_data = [(data * 100) for data in twin_win_data]
-        twin_win_df = pd.DataFrame({"results": twin_win_data, "pcg_moved": grid + 1})
+        twin_win_df = pd.DataFrame(
+            {"results": twin_win_data, "pcg_moved": (grid + 1) * 100}
+        )
         return twin_win_df
 
     def _twin_peaks_plot(
@@ -51,25 +53,5 @@ class VaultStrategyPlot(object):
 
 
 if __name__ == "__main__":
-    leftmost = -0.3
-    rightmost = 0.3
-    step = 0.0005
-    grid = np.arange(leftmost, rightmost, step)
-
-    upper_barrier = 1.1
-    lower_barrier = 0.9
-    twin_win_ = [
-        VaultStrategyPlot("protected_twin_peaks")._twin_peaks_plot(
-            1 + round(i, 3), upper_barrier, lower_barrier, 0.005
-        )
-        for i in grid
-    ]
-    # twin_win_data = [(data * 100) for data in twin_win_]
-    # print(twin_win_data)
-    df = pd.DataFrame({"results": twin_win_, "pcg_moved": grid + 1})
-
-    fig = px.line(df, x="pcg_moved", y="results", title="Twin Win")
-    fig.update_yaxes(scaleratio=100)
-    fig.update_traces(mode="markers+lines")
-    # py.plot()
-    fig.show()
+    v = VaultStrategyPlot("protected_twin_peaks")
+    # print(v.strategy_plot_data())
