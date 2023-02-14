@@ -25,20 +25,22 @@ class VaultStrategyPlot(object):
         upper_barrier = 1.08
         lower_barrier = 0.92
         twin_win_data = [
-            self._twin_peaks_plot(1 + round(i, 3), upper_barrier, lower_barrier)
+            self._twin_peaks_plot(
+                1 + round(i, 3), upper_barrier, lower_barrier, base_apy=0.005
+            )
             for i in grid
         ]
         twin_win_df = pd.DataFrame({"results": twin_win_data, "pcg_moved": grid + 1})
         return twin_win_df
 
-    def _twin_peaks_plot(self, pcg_change, upper_barrier, lower_barrier):
+    def _twin_peaks_plot(self, pcg_change, upper_barrier, lower_barrier, base_apy):
 
         bad_condition_up = pcg_change > upper_barrier
         bad_condition_down = pcg_change < lower_barrier
         if bad_condition_up | bad_condition_down:
-            return 0.02 * 0.9
+            return base_apy * 0.9
         else:
-            return (max(1 - pcg_change, pcg_change - 1) * 1.59 + 0.02) * 0.9
+            return (max(1 - pcg_change, pcg_change - 1) * 1.59 + base_apy) * 0.9
 
 
 if __name__ == "__main__":
@@ -51,7 +53,7 @@ if __name__ == "__main__":
     lower_barrier = 0.9
     twin_win_ = [
         VaultStrategyPlot("protected_twin_peaks")._twin_peaks_plot(
-            1 + round(i, 3), upper_barrier, lower_barrier
+            1 + round(i, 3), upper_barrier, lower_barrier, 0.005
         )
         for i in grid
     ]
