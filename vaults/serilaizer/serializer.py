@@ -5,12 +5,16 @@ from utilities.enum import Vaults
 
 class FetchPriceRangeRequestSerializer(serializers.Serializer):
     asset_name = serializers.CharField(required=True)
-    vault = serializers.CharField(required=True)
+    vault = serializers.ChoiceField(
+        required=True, choices=[vault.value for vault in Vaults]
+    )
 
 
 class ExpirationRequestSerializer(serializers.Serializer):
     asset_name = serializers.CharField(required=False)
-    vault = serializers.CharField(required=True)
+    vault = serializers.ChoiceField(
+        required=True, choices=[vault.value for vault in Vaults]
+    )
 
 
 class AssetTVLRequestSerializer(serializers.Serializer):
@@ -26,3 +30,6 @@ class VaultPlotRequestSerializer(serializers.Serializer):
 
 class AssetAPYRequestSerializer(serializers.Serializer):
     asset_symbol = serializers.CharField(required=True)
+    vault = serializers.ChoiceField(
+        required=True, choices=[vault.value for vault in Vaults]
+    )
