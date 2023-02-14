@@ -12,6 +12,7 @@ from vaults.serilaizer import (
     ExpirationRequestSerializer,
     AssetTVLRequestSerializer,
     VaultPlotRequestSerializer,
+    AssetAPYRequestSerializer,
 )
 
 
@@ -108,6 +109,25 @@ class Vaults(GenericViewSet):
                 vault_strategy_plot.strategy_plot_data().to_dict()
             )
             result["message"] = vault_strategy_plot_data
+            return Response(result, status.HTTP_200_OK)
+        except Exception as e:
+            result["error"] = str(e)
+            return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def asset_apy(self, request):
+        result = {"message": {}, "error": None}
+        data = request.query_params
+        serializer_class = AssetAPYRequestSerializer
+        serializer = serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        validated_data = serializer.validated_data
+        try:
+            firebase_db_manager_obj = FirebaseDataManager()
+            asset_apy = firebase_db_manager_obj.fetch_data(
+                collection_name="assets",
+                document_name=validated_data.get("asset_symbol"),
+            )["apy"]
+            result["message"] = asset_apy
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
             result["error"] = str(e)
