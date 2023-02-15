@@ -27,26 +27,18 @@ class Vaults(GenericViewSet):
 
         try:
             firebase_db_manager_obj = FirebaseDataManager()
-            asset_info = firebase_db_manager_obj.fetch_data(
+            price_range = firebase_db_manager_obj.fetch_data(
                 collection_name=validated_data.get("vault"),
                 document_name=validated_data.get("asset_name"),
-            )
-            price_range = asset_info["price_range"]
-            asset_price_9am_utc = float(asset_info["asset_price_9am_utc"])
-            lower_bound_pcg = int(price_range["lower_bound"])
-            upper_bound_pcg = int(price_range["upper_bound"])
-            lower_bound = asset_price_9am_utc * (lower_bound_pcg / 100)
-            upper_bound = asset_price_9am_utc * (upper_bound_pcg / 100)
-
-            result["message"] = {
-                "upper_bound": round(upper_bound, 1),
-                "lower_bound": round(lower_bound, 1),
-            }
-            return Response(result, status.HTTP_200_OK)
+            )["price_range"]
+            lower_bound = price_range["lower_bound"]
+            upper_bound = price_range["upper_bound"]
+            result["message"] = {"upper_bound": upper_bound, "lower_bound": lower_bound}
 
         except Exception as e:
             result["error"] = str(e)
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(result, status.HTTP_200_OK)
 
     def expiration(self, request):
         result = {"message": None, "error": None}
