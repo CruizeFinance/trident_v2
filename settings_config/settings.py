@@ -41,6 +41,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://dev.d1sepe235cn29v.amplifyapp.com",
     "https://dev.app.cruize.finance",
     "https://www.dev.app.cruize.finance",
+    "https://www.cruize.finance/",
+    "https://cruize.finance/",
+    "https://www.cruize.webflow.io/",
+    "https://cruize.webflow.io/"
 ]
 ALLOWED_HOSTS = [
     "*",
@@ -58,6 +62,8 @@ ALLOWED_HOSTS = [
     "dev.app.cruize.finance",
     "localhost",
     "127.0.0.1",
+    "cruize.finance",
+    "cruize.webflow.io"
 ]
 
 # Application definition
