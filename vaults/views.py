@@ -39,8 +39,8 @@ class Vaults(GenericViewSet):
             upper_bound = asset_price_9am_utc * (upper_bound_pcg / 100)
 
             result["message"] = {
-                "upper_bound": round(upper_bound, 1),
-                "lower_bound": round(lower_bound, 1),
+                "upper_bound": round(upper_bound, 2),
+                "lower_bound": round(lower_bound, 2),
             }
             return Response(result, status.HTTP_200_OK)
 
