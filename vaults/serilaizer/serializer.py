@@ -26,6 +26,7 @@ class VaultPlotRequestSerializer(serializers.Serializer):
     vault = serializers.ChoiceField(
         required=True, choices=[vault.value for vault in Vaults]
     )
+    asset_symbol = serializers.CharField(required=True)
 
 
 class AssetAPYRequestSerializer(serializers.Serializer):

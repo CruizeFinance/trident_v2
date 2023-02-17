@@ -2,12 +2,14 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 
+from components import FirebaseDataManager
 from utilities.enum import Vaults
 
 
 class VaultStrategyPlot(object):
-    def __init__(self, vault):
+    def __init__(self, vault, asset_symbol):
         self.vault = vault
+        self.asset_symbol = asset_symbol
 
     def strategy_plot_data(self):
         if self.vault == Vaults.PROTECTEDTWINPEAKS.value:
@@ -24,13 +26,21 @@ class VaultStrategyPlot(object):
 
         upper_barrier = 1.08
         lower_barrier = 0.92
+        firebase_db_manager_obj = FirebaseDataManager()
+
+        asset_info = firebase_db_manager_obj.fetch_data(
+            collection_name=self.vault, document_name=self.asset_symbol
+        )
+        base_apy = float(asset_info["apy"]["base_apy"].split("%")[0])
+        participation_rate = float(asset_info["participation_rate"])
+
         twin_win_data = [
             self._twin_peaks_plot(
                 1 + round(i, 3),
                 upper_barrier,
                 lower_barrier,
-                base_apy=0.005,
-                part_rate=3.18,
+                base_apy=base_apy,
+                part_rate=participation_rate,
             )
             for i in grid
         ]

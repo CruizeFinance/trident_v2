@@ -112,7 +112,10 @@ class Vaults(GenericViewSet):
         validated_data = serializer.validated_data
 
         try:
-            vault_strategy_plot = VaultStrategyPlot(vault=validated_data.get("vault"))
+            vault_strategy_plot = VaultStrategyPlot(
+                vault=validated_data.get("vault"),
+                asset_symbol=validated_data.get("asset_symbol"),
+            )
             vault_strategy_plot_data = (
                 vault_strategy_plot.strategy_plot_data().to_dict()
             )
