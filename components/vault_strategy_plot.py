@@ -31,7 +31,7 @@ class VaultStrategyPlot(object):
         asset_info = firebase_db_manager_obj.fetch_data(
             collection_name=self.vault, document_name=self.asset_symbol
         )
-        base_apy = float(asset_info["apy"]["base_apy"].split("%")[0])
+        base_apy = float(asset_info["apy"]["base_apy"].split("%")[0])/100
         participation_rate = float(asset_info["participation_rate"])
 
         twin_win_data = [
