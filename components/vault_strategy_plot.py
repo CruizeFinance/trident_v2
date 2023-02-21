@@ -31,7 +31,7 @@ class VaultStrategyPlot(object):
         asset_info = firebase_db_manager_obj.fetch_data(
             collection_name=self.vault, document_name=self.asset_symbol
         )
-        base_apy = float(asset_info["apy"]["base_apy"].split("%")[0])/100
+        base_apy = float(asset_info["apy"]["base_apy"].split("%")[0]) / 100
         participation_rate = float(asset_info["participation_rate"])
 
         twin_win_data = [
@@ -63,5 +63,11 @@ class VaultStrategyPlot(object):
 
 
 if __name__ == "__main__":
-    v = VaultStrategyPlot("protected_twin_peaks")
-    # print(v.strategy_plot_data())
+    v = VaultStrategyPlot("protected_twin_peaks", "WETH")
+
+    df = v.strategy_plot_data()
+    fig = px.line(df, x="pcg_moved", y="results", title="Twin Win", height=400)
+    fig.update_yaxes(scaleratio=100)
+    fig.update_traces(mode="markers+lines")
+    # py.plot()
+    fig.show()
