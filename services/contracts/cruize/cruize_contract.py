@@ -14,7 +14,7 @@ class CruizeContract(object):
         self.contract_abi = open(
             "/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json"
         )
-        # self.contract_abi = open("/Users/prithvirajmurthy/Desktop/blockchain/cruize/trident_v2/services/contracts/cruize/cruize_contract_abi.json")
+        # self.contract_abi = open("services/contracts/cruize/cruize_contract_abi.json")
         self.contract_data = json.load(self.contract_abi)
         self.firebase_db_manager_obj = FirebaseDataManager()
 
