@@ -27,10 +27,17 @@ class LoadContracts:
     """
 
     def web3_provider(self, network_name):
-        web3 = Web3(
-            Web3.HTTPProvider(
-                f"https://{network_name}.infura.io/v3/2cc3b3784c7940a0a844e51b59857588"
+        if network_name not in constant.mainnet_networks.values():
+            web3 = Web3(
+                Web3.HTTPProvider(
+                    f"https://{network_name}.infura.io/v3/2cc3b3784c7940a0a844e51b59857588"
+                )
             )
-        )
+        else:
+            web3 = Web3(
+                Web3.HTTPProvider(
+                    f"https://{network_name}-mainnet.infura.io/v3/2cc3b3784c7940a0a844e51b59857588"
+                )
+            )
         web3.middleware_onion.inject(geth_poa_middleware, layer=0)
         return web3
