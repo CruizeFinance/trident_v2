@@ -3,7 +3,7 @@ symbol_asset = {"WETH": "ethereum", "WBTC": "bitcoin", "USDC": "usd"}
 asset_decimals = {"WETH": 1e18, "WBTC": 1e08, "USDC": 1e06}
 asset_tvl = {"ethereum": 1614, "bitcoin": 212, "usd": 0}
 asset_cap_decimal = 1e18
-network_name = {"5": "goerli", "421613": "arbitrum-goerli"}
+network_name = {"5": "goerli", "421613": "arbitrum-goerli", "80001": "polygon-mumbai"}
 # TODO:make sure to use the mainnet data here.
 MAINNET_INFURA_URL = "https://mainnet.infura.io/v3/4e55b6d7c94d4c58a931971dc807d055"
 STARK_CONTRACT_ADDRESS = "0x014F738EAd8Ec6C50BCD456a971F8B84Cd693BBe"
