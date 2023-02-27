@@ -11,10 +11,10 @@ from web3 import Web3
 class CruizeContract(object):
     def __init__(self):
         self.load_contract = LoadContracts()
-        self.contract_abi = open(
-            "/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json"
-        )
-        # self.contract_abi = open("services/contracts/cruize/cruize_contract_abi.json")
+        # self.contract_abi = open(
+        #     "/home/CruizeFinance/trident_v2/services/contracts/cruize/cruize_contract_abi.json"
+        # )
+        self.contract_abi = open("services/contracts/cruize/cruize_contract_abi.json")
         self.contract_data = json.load(self.contract_abi)
         self.firebase_db_manager_obj = FirebaseDataManager()
 
@@ -91,7 +91,11 @@ class CruizeContract(object):
         contracts = self.get_contract()
         for i, network_name in enumerate(network_names):
             total_tvl[network_name] = {}
-            contract_obj = contracts[network_name]["contract_obj"]
+            network_data = contracts.get(network_name, None)
+            if not network_data:
+                continue
+
+            contract_obj = network_data["contract_obj"]
             assets = contracts[network_name]
             for asset_symbol, asset_address in assets.items():
                 if asset_symbol not in constant.symbol_asset.keys():
