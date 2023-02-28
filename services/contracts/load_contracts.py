@@ -27,7 +27,7 @@ class LoadContracts:
     """
 
     def web3_provider(self, network_name):
-        if network_name not in constant.mainnet_networks.values():
+        if network_name not in constant.networks["mainnet"].values():
             web3 = Web3(
                 Web3.HTTPProvider(
                     f"https://{network_name}.infura.io/v3/2cc3b3784c7940a0a844e51b59857588"

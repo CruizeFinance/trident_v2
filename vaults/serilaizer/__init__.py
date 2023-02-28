@@ -4,4 +4,5 @@ from .serializer import (
     AssetTVLRequestSerializer,
     VaultPlotRequestSerializer,
     AssetAPYRequestSerializer,
+    TotalTVLRequestSerializer,
 )
