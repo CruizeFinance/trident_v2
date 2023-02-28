@@ -51,7 +51,11 @@ class CruizeContract(object):
         return contracts_data
 
     def asset_tvl(self, asset_symbol, network_id):
-        network_name = constant.network_name[network_id]
+        networks = constant.networks.values()
+        network_name = ""
+        for network in networks:
+            if network_id in network.keys():
+                network_name = network[network_id]
         contract = self.get_contract()
         assets = contract[network_name]
         asset_tvl = self.get_asset_tvl(
@@ -65,7 +69,7 @@ class CruizeContract(object):
         return asset_tvl
 
     def network_total_tvl(self, network_id):
-        network_name = constant.network_name[network_id]
+        network_name = constant.networks[network_id]
         assets_total_tvl = {}
         contracts = self.get_contract()
         contract_obj = contracts[network_name]["contract_obj"]
@@ -85,10 +89,11 @@ class CruizeContract(object):
             assets_total_tvl[asset_symbol] = asset_tvl
         return assets_total_tvl
 
-    def total_tvl(self):
+    def total_tvl(self, network_env):
         total_tvl = {}
-        network_names = constant.network_name.values()
+        network_names = constant.networks[network_env].values()
         contracts = self.get_contract()
+
         for i, network_name in enumerate(network_names):
             total_tvl[network_name] = {}
             network_data = contracts.get(network_name, None)

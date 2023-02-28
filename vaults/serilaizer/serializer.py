@@ -22,6 +22,10 @@ class AssetTVLRequestSerializer(serializers.Serializer):
     network_id = serializers.CharField(required=True)
 
 
+class TotalTVLRequestSerializer(serializers.Serializer):
+    network_env = serializers.CharField(required=False, default="mainnet")
+
+
 class VaultPlotRequestSerializer(serializers.Serializer):
     vault = serializers.ChoiceField(
         required=True, choices=[vault.value for vault in Vaults]

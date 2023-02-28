@@ -13,6 +13,7 @@ from vaults.serilaizer import (
     AssetTVLRequestSerializer,
     VaultPlotRequestSerializer,
     AssetAPYRequestSerializer,
+    TotalTVLRequestSerializer,
 )
 
 
@@ -86,21 +87,29 @@ class Vaults(GenericViewSet):
 
         try:
             result["message"] = cruize_vault_obj.asset_tvl(
-                validated_data["asset_symbol"], validated_data["network_id"]
+                validated_data["asset_symbol"],
+                validated_data["network_id"],
             )
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
-            result["error"] = e
+            result["error"] = str(e)
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def total_tvl(self, request):
         result = {"message": None, "error": None}
+        serializer_class = TotalTVLRequestSerializer
+        request_body = request.query_params
+        serializer = serializer_class(data=request_body)
+        serializer.is_valid(raise_exception=True)
+        validated_data = serializer.validated_data
         cruize_contract_obj = CruizeContract()
         try:
-            result["message"] = cruize_contract_obj.total_tvl()
+            result["message"] = cruize_contract_obj.total_tvl(
+                network_env=validated_data["network_env"]
+            )
             return Response(result, status.HTTP_200_OK)
         except Exception as e:
-            result["error"] = e
+            result["error"] = str(e)
             return Response(result, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def strategy_plot_data(self, request):

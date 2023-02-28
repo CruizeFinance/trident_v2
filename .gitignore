@@ -1,5 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+vaults/__pycache__/
+vaults/serilaizer/__pycache__/
+
 *.py[cod]
 *$py.class
 
