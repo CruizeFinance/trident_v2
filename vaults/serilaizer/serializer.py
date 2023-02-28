@@ -23,7 +23,7 @@ class AssetTVLRequestSerializer(serializers.Serializer):
 
 
 class TotalTVLRequestSerializer(serializers.Serializer):
-    network_env = serializers.CharField(required=False, default="mainnet")
+    network_env = serializers.CharField(required=False, default="testnet")
 
 
 class VaultPlotRequestSerializer(serializers.Serializer):
