@@ -31,8 +31,8 @@ class VaultStrategyPlot(object):
         )
         base_apy = float(asset_info["apy"]["base_apy"].split("%")[0]) / 100
         participation_rate = float(asset_info["participation_rate"])
-        lower_barrier = float(asset_info["price_range"]["lower_bound"])
-        upper_barrier = float(asset_info["price_range"]["upper_bound"])
+        lower_barrier = float(asset_info["price_range"]["lower_bound"])/100
+        upper_barrier = float(asset_info["price_range"]["upper_bound"])/100
 
         twin_win_data = [
             self._twin_peaks_plot(
@@ -65,9 +65,8 @@ class VaultStrategyPlot(object):
 if __name__ == "__main__":
     v = VaultStrategyPlot("protected_twin_peaks", "ETH")
     print(v.strategy_plot_data())
-    # df = v.strategy_plot_data()
-    # fig = px.line(df, x="pcg_moved", y="results", title="Twin Win", height=400)
-    # fig.update_yaxes(scaleratio=100)
-    # fig.update_traces(mode="markers+lines")
-    # py.plot()
-    # fig.show()
+    df = v.strategy_plot_data()
+    fig = px.line(df, x="pcg_moved", y="results", title="Twin Win", height=400)
+    fig.update_yaxes(scaleratio=100)
+    fig.update_traces(mode="markers+lines")
+    fig.show()
