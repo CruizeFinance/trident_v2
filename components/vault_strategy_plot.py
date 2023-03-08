@@ -31,9 +31,9 @@ class VaultStrategyPlot(object):
         )
         base_apy = float(asset_info["apy"]["base_apy"].split("%")[0]) / 100
         participation_rate = float(asset_info["participation_rate"])
-        lower_barrier = float(asset_info["price_range"]["lower_bound"])/100
-        upper_barrier = float(asset_info["price_range"]["upper_bound"])/100
-
+        lower_barrier = float(asset_info["price_range"]["lower_bound"]) / 100
+        upper_barrier = float(asset_info["price_range"]["upper_bound"]) / 100
+        print(lower_barrier, upper_barrier)
         twin_win_data = [
             self._twin_peaks_plot(
                 1 + round(i, 3),
