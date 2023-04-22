@@ -34,9 +34,7 @@ class LoadContracts:
             # infura_testnet = config("INFURA_TESTNET")
 
             web3 = Web3(
-                Web3.HTTPProvider(
-                    f"https://{network_name}.infura.io/v3/{infura}"
-                )
+                Web3.HTTPProvider(f"https://{network_name}.infura.io/v3/{infura}")
             )
         else:
             # infura_mainnet = config("INFURA_MAINNET")
