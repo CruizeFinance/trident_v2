@@ -8,8 +8,16 @@ class FirebaseDataManager(object):
     def __init__(self):
         self.firebase_client = firebase_client
 
-    def update_data(self, order_id, collection, data):
-        self.firebase_client.collection(collection).document(order_id).update(data)
+    def document_exists(self, document, collection_name):
+        return (
+            self.firebase_client.collection(collection_name)
+            .document(document)
+            .get()
+            .exists
+        )
+
+    def update_data(self, document, collection_name, data):
+        self.firebase_client.collection(collection_name).document(document).update(data)
 
     def store_data(self, data, document, collection_name):
         self.firebase_client.collection(collection_name).document(document).set(data)

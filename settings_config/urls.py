@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("vaults/", include("vaults.urls")),
+    path("lge/", include("lge.urls")),
 ]
