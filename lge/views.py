@@ -20,13 +20,15 @@ class LGE(GenericViewSet):
         validated_data = serializer.validated_data
 
         try:
-            referree_addr = validated_data.get("link").split("referree_addr=")[1]
+            referral_code = validated_data.get("referral_link").split("referral_code=")[
+                1
+            ]
             user_addr = validated_data.get("user_addr")
             data = {f"{user_addr}": validated_data}
 
             firebase_data_manager = FirebaseDataManager()
             collection_name = "lge_referral"
-            document = referree_addr
+            document = referral_code
 
             referral_data_exists = firebase_data_manager.document_exists(
                 collection_name=collection_name, document=document
