@@ -1,6 +1,4 @@
-from datetime import datetime, timedelta, date
-import time
-
+from datetime import datetime, timedelta
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -8,9 +6,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from components import FirebaseDataManager
 from components import VaultStrategyPlot
-from services import CruizeContract, api_services
-from utilities.constant import UTC
-
+from services import CruizeContract
 from vaults.serilaizer import (
     FetchPriceRangeRequestSerializer,
     ExpirationRequestSerializer,
@@ -37,18 +33,11 @@ class Vaults(GenericViewSet):
                 document_name=validated_data.get("asset_name"),
             )
             price_range = asset_info["price_range"]
-            # asset_price_9am_utc = float(asset_info["asset_price_9am_utc"])
-            asset_price_monday = float(
-                api_services.asset_price_coingecko_historical(
-                    asset_name=validated_data.get("asset_name"),
-                    current_day=date.today(),
-                )
-            )
-
+            asset_price_9am_utc = float(asset_info["asset_price_9am_utc"])
             lower_bound_pcg = int(price_range["lower_bound"])
             upper_bound_pcg = int(price_range["upper_bound"])
-            lower_bound = asset_price_monday * (lower_bound_pcg / 100)
-            upper_bound = asset_price_monday * (upper_bound_pcg / 100)
+            lower_bound = asset_price_9am_utc * (lower_bound_pcg / 100)
+            upper_bound = asset_price_9am_utc * (upper_bound_pcg / 100)
 
             result["message"] = {
                 "upper_bound": round(upper_bound, 2),
